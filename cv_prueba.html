@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jaime Fariña Peña – Aerospace Engineer & Product Analyst</title>
+<meta name="description" content="Interactive CV of Jaime Fariña Peña, aerospace engineer and Product Analyst: requirements, technical documentation, safety and qualification.">
+<style>
+:root{
+  --bg:#f6f8fb; --card:#ffffff; --text:#2b2f36; --muted:#667085;
+  --accent:#1F3A5F; --accent-soft:#EAEEF4; --line:#dfe4ec;
+}
+:root[data-theme="dark"]{
+  --bg:#0f1520; --card:#171f2d; --text:#e6e9ef; --muted:#9aa5b8;
+  --accent:#7fa6dc; --accent-soft:#1e2a3d; --line:#28344a;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{color:var(--accent)}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+nav{position:sticky;top:0;z-index:10;background:var(--card);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding-top:10px;padding-bottom:10px}
+nav a{text-decoration:none;color:var(--muted);font-size:.9rem;padding:4px 10px;border-radius:6px}
+nav a:hover,nav a.active{background:var(--accent-soft);color:var(--accent)}
+nav .spacer{flex:1}
+button{font:inherit;cursor:pointer}
+.icon-btn{background:none;border:1px solid var(--line);color:var(--muted);border-radius:6px;padding:4px 10px;font-size:.85rem}
+.icon-btn:hover{color:var(--accent);border-color:var(--accent)}
+header.hero{padding:64px 0 40px}
+.hero h1{font-size:clamp(2rem,5vw,2.8rem);margin:0;color:var(--accent);letter-spacing:-.02em}
+.hero .role{font-size:1.2rem;margin:6px 0 18px;color:var(--text)}
+.hero p.lead{max-width:640px;color:var(--muted);font-size:1.05rem;margin:0 0 22px}
+.links{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-block;text-decoration:none;padding:9px 16px;border-radius:8px;border:1px solid var(--accent);color:var(--accent);font-size:.92rem}
+.btn.primary{background:var(--accent);color:var(--bg)}
+:root[data-theme="dark"] .btn.primary{color:#0f1520}
+.btn:hover{opacity:.85}
+section{padding:36px 0}
+h2{font-size:1.4rem;color:var(--accent);margin:0 0 20px;padding-bottom:8px;border-bottom:2px solid var(--accent)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:22px}
+.stat{background:var(--accent-soft);border-radius:10px;padding:14px;text-align:center}
+.stat b{display:block;font-size:1.5rem;color:var(--accent)}
+.stat span{font-size:.82rem;color:var(--muted)}
+/* tabs */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.tab{background:var(--card);border:1px solid var(--line);color:var(--muted);padding:7px 14px;border-radius:999px;font-size:.9rem}
+.tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+:root[data-theme="dark"] .tab[aria-selected="true"]{color:#0f1520}
+.panel{display:none}
+.panel.show{display:block;animation:fade .25s}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+ul{padding-left:1.2em;margin:8px 0}
+li{margin:5px 0}
+li::marker{color:var(--accent)}
+/* timeline */
+.job{position:relative;padding-left:22px;margin-bottom:26px;border-left:2px solid var(--line)}
+.job::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--accent)}
+.job h3{margin:0;font-size:1.1rem}
+.job .meta{color:var(--muted);font-size:.9rem;margin-bottom:6px}
+.tag{display:inline-block;background:var(--accent-soft);color:var(--accent);font-size:.75rem;padding:2px 9px;border-radius:999px;margin:2px 2px 0 0}
+.workflow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0 4px;font-size:.88rem}
+.workflow .step{background:var(--accent-soft);color:var(--accent);padding:6px 12px;border-radius:8px}
+.workflow .arrow{color:var(--muted)}
+/* skills */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.chip{background:var(--card);border:1px solid var(--line);color:var(--muted);padding:5px 13px;border-radius:999px;font-size:.85rem}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+:root[data-theme="dark"] .chip[aria-pressed="true"]{color:#0f1520}
+.skills{display:flex;flex-wrap:wrap;gap:8px}
+.skill{background:var(--card);border:1px solid var(--line);padding:6px 13px;border-radius:8px;font-size:.9rem}
+.skill.hide{display:none}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.small{font-size:.9rem;color:var(--muted)}
+.reveal{opacity:0;transform:translateY(12px);transition:.5s}
+.reveal.in{opacity:1;transform:none}
+footer{padding:30px 0 50px;text-align:center;color:var(--muted);font-size:.85rem}
+@media print{
+  nav,.icon-btn,.filters,.tabs{display:none}
+  .panel{display:block!important}
+  .reveal{opacity:1;transform:none}
+  body{background:#fff;color:#000}
+  .card{break-inside:avoid}
+}
+@media (prefers-reduced-motion:reduce){.reveal{transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="#about">About</a>
+    <a href="#centum">What I do</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
+    <span class="spacer"></span>
+    <button class="icon-btn" id="print" title="Print or save as PDF">Print / PDF</button>
+    <button class="icon-btn" id="theme" title="Switch light/dark theme">Theme</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>Jaime Fariña Peña</h1>
+    <div class="role">Aerospace Engineer | Product Analyst</div>
+    <p class="lead">I help build aeronautical products from the first customer request to the final qualification test: requirements, technical documentation, safety analysis and equipment qualification.</p>
+    <div class="links">
+      <a class="btn primary" href="mailto:j.farina.p@gmail.com">Email me</a>
+      <a class="btn" href="https://www.linkedin.com/in/jaime-fari%C3%B1a-pe%C3%B1a-279565206/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="tel:+34653443251">+34 653 443 251</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section id="about" class="reveal">
+  <h2>About</h2>
+  <div class="card">
+    <p>I'm an aerospace engineer working as a Product Analyst at Centum, in Vigo. My work sits between product, engineering and certification: I turn customer needs into clear requirements, I write and automate technical documentation, and I support the safety and qualification of aeronautical equipment.</p>
+    <p>I work every day with marketing, sales, development, support and V&amp;V, so I enjoy being the link between teams. I like clear, traceable work and automating anything repetitive.</p>
+    <div class="stats">
+      <div class="stat"><b id="yrs">2+</b><span>years at Centum</span></div>
+      <div class="stat"><b>4</b><span>areas of work</span></div>
+      <div class="stat"><b>2</b><span>engineering degrees</span></div>
+      <div class="stat"><b>3</b><span>languages</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="centum" class="reveal">
+  <h2>What I do at Centum</h2>
+  <p class="small">My role is cross-functional. Select an area to see the details.</p>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" data-p="p1">Product management</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="p2">Requirements</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="p3">Technical documentation</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="p4">Safety</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="p5">Qualification</button>
+  </div>
+  <div class="card">
+    <div class="panel show" id="p1">
+      <h3>Product management</h3>
+      <p>I act as a product owner / product manager for the product line.</p>
+      <ul>
+        <li>Analyse feature requests coming from customers and from internal teams.</li>
+        <li>Discuss the feasibility of each feature with the departments involved.</li>
+        <li>Prioritise the features and group them into change requests.</li>
+        <li>Developer tasks hang from each change request, adapted to what the analysis showed was feasible.</li>
+      </ul>
+      <div class="workflow">
+        <span class="step">Feature request</span><span class="arrow">→</span>
+        <span class="step">Analysis &amp; feasibility</span><span class="arrow">→</span>
+        <span class="step">Priority &amp; grouping</span><span class="arrow">→</span>
+        <span class="step">Change request</span><span class="arrow">→</span>
+        <span class="step">Developer tasks</span>
+      </div>
+    </div>
+    <div class="panel" id="p2">
+      <h3>Requirements and mockups</h3>
+      <ul>
+        <li>Write the requirements for each new functionality created through a change request.</li>
+        <li>Keep traceability from high-level needs down to detailed specifications, using IBM DOORS Next Generation.</li>
+        <li>Build HTML mockups so developers understand what product is asking for.</li>
+      </ul>
+      <span class="tag">DOORS Next Generation</span><span class="tag">Requirements Engineering</span><span class="tag">Mockups</span>
+    </div>
+    <div class="panel" id="p3">
+      <h3>Technical documentation</h3>
+      <ul>
+        <li>Create and maintain documentation for customers and for internal use: manuals, declarations, analyses and more.</li>
+        <li>Automated the documentation workflow in LaTeX. Everything is defined with macros and custom commands, so documents are consistent and quick to update.</li>
+      </ul>
+      <span class="tag">LaTeX</span><span class="tag">Automation</span><span class="tag">Manuals</span>
+    </div>
+    <div class="panel" id="p4">
+      <h3>Safety</h3>
+      <p>Our products are aeronautical, so safety documents and analyses are a big part of the job.</p>
+      <ul>
+        <li>Fault Tree Analysis (FTA).</li>
+        <li>MTBF and RAMS (Reliability, Availability, Maintainability, Safety) analyses.</li>
+        <li>EMI analysis and equipment risk analysis in aircraft environments.</li>
+        <li>Work done following aeronautical standards, to support airworthiness and certification.</li>
+      </ul>
+      <span class="tag">FTA</span><span class="tag">MTBF</span><span class="tag">RAMS</span><span class="tag">Airworthiness</span>
+    </div>
+    <div class="panel" id="p5">
+      <h3>Qualification</h3>
+      <ul>
+        <li>Created the qualification plan for a programme with Airbus.</li>
+        <li>Understand and apply qualification standards such as DO-160G and the MIL-STD standards for RF.</li>
+        <li>Write Qualification Test Procedures following the standards and adapted to our equipment.</li>
+        <li>Visit and work with test laboratories (Dekra, CTAG, AppPlus).</li>
+      </ul>
+      <span class="tag">DO-160G</span><span class="tag">MIL-STD</span><span class="tag">Test procedures</span><span class="tag">Airbus</span>
+    </div>
+  </div>
+</section>
+
+<section id="experience" class="reveal">
+  <h2>Experience</h2>
+
+  <div class="job">
+    <h3>Product Analyst · Centum</h3>
+    <div class="meta">Nov 2024 – present · Vigo, Galicia</div>
+    <p>Cross-functional role covering product management, requirements, technical documentation, safety and qualification of aeronautical products. Constant contact with marketing, sales, development, support and V&amp;V, working in English.</p>
+    <span class="tag">Requirements</span><span class="tag">LaTeX</span><span class="tag">FTA / RAMS</span><span class="tag">DO-160G</span><span class="tag">Part 21 EASA</span>
+  </div>
+
+  <div class="job">
+    <h3>Aeronautical Project Engineer (Intern) · Utingal</h3>
+    <div class="meta">Jun 2024 – Aug 2024 · Tui, Galicia</div>
+    <ul>
+      <li>Reviewed customer RFQs and RFPs (including Airbus), with technical evaluation and cost and time estimates.</li>
+      <li>Followed up projects and coordinated communication between departments.</li>
+      <li>Ran tests on composite materials following the test plan.</li>
+      <li>Worked with Excel and CATIA V5.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <h3>Operations Engineer (Intern) · Navya Solutions</h3>
+    <div class="meta">Oct 2021 – Jun 2022 · Madrid</div>
+    <ul>
+      <li>Designed EOSID procedures (Engine Out Standard Instrument Departure) and carried out obstacle analysis.</li>
+      <li>Reviewed AIRAC amendments for airports in Spain, Portugal, France, Italy, Belgium and Morocco.</li>
+      <li>Performance studies for Embraer E195 and ATR72.</li>
+      <li>Coordinated with airlines such as Binter Canarias and Canaryfly.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="skills" class="reveal">
+  <h2>Skills</h2>
+  <div class="filters" id="filters">
+    <button class="chip" aria-pressed="true" data-f="all">All</button>
+    <button class="chip" aria-pressed="false" data-f="req">Requirements &amp; docs</button>
+    <button class="chip" aria-pressed="false" data-f="safe">Safety &amp; qualification</button>
+    <button class="chip" aria-pressed="false" data-f="code">Data &amp; programming</button>
+    <button class="chip" aria-pressed="false" data-f="eng">Engineering &amp; simulation</button>
+  </div>
+  <div class="skills" id="skills-list">
+    <span class="skill" data-c="req">IBM DOORS Next Generation</span>
+    <span class="skill" data-c="req">Requirements Engineering</span>
+    <span class="skill" data-c="req">LaTeX</span>
+    <span class="skill" data-c="req">Jira</span>
+    <span class="skill" data-c="req">VS Code</span>
+    <span class="skill" data-c="req">Office</span>
+    <span class="skill" data-c="safe">FTA</span>
+    <span class="skill" data-c="safe">MTBF / RAMS</span>
+    <span class="skill" data-c="safe">EMI</span>
+    <span class="skill" data-c="safe">DO-160G</span>
+    <span class="skill" data-c="safe">MIL-STD</span>
+    <span class="skill" data-c="safe">Part 21 EASA</span>
+    <span class="skill" data-c="code">Python</span>
+    <span class="skill" data-c="code">MATLAB</span>
+    <span class="skill" data-c="code">Simulink</span>
+    <span class="skill" data-c="code">Java</span>
+    <span class="skill" data-c="code">Excel</span>
+    <span class="skill" data-c="eng">CATIA V5</span>
+    <span class="skill" data-c="eng">ANSYS</span>
+    <span class="skill" data-c="eng">STAR-CCM+</span>
+    <span class="skill" data-c="eng">SolidWorks</span>
+    <span class="skill" data-c="eng">GMAT</span>
+    <span class="skill" data-c="eng">ESAComp</span>
+    <span class="skill" data-c="eng">AutoCAD</span>
+  </div>
+  <p class="small" style="margin-top:18px"><b>Languages:</b> Spanish (native) · Galician (native) · English (C1)</p>
+</section>
+
+<section id="education" class="reveal">
+  <h2>Education and certifications</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3 style="margin-top:0">Education</h3>
+      <p><b>MSc in Aeronautical Engineering</b><br><span class="small">Universitat Politècnica de València · 2022 – 2024</span><br>Focus on aeroengines, aircraft modelling and design, air navigation and airports. Final project: Simulation of Drone Swarm Behavior (9/10).</p>
+      <p><b>BSc in Aerospace Engineering</b><br><span class="small">Universidad Politécnica de Madrid · 2017 – 2022</span><br>Specialisation in Aerospace Vehicles. Final project: Economic Impact of Space Tourism (9.3/10).</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">Certifications</h3>
+      <ul>
+        <li>Approval of Aircraft Equipment Installation – SENASA (Feb 2026)</li>
+        <li>IBM ELM Requirements and Test Management, DOORS Next Generation – Grupo ULMA (Jan 2026)</li>
+        <li>Drone Pilot Certificate A1/A3 – AESA (Jun 2025, valid until Jun 2030)</li>
+        <li>Requirements Engineering (IREB/INCOSE) – Udemy (May 2025)</li>
+      </ul>
+      <p class="small">Courses: Introduction to CATIA V5; Introduction to UAVs (30 h), both with UPM.</p>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h3 style="margin-top:0">Beyond work</h3>
+    <p>Guitar and music theory (12 years of study, including composition) and tennis (playing tournaments since 2013).</p>
+  </div>
+</section>
+
+<section id="contact" class="reveal">
+  <h2>Contact</h2>
+  <div class="card">
+    <p>Open to new opportunities in product, requirements, safety or certification roles in aerospace.</p>
+    <div class="links">
+      <a class="btn primary" href="mailto:j.farina.p@gmail.com">j.farina.p@gmail.com</a>
+      <a class="btn" href="https://www.linkedin.com/in/jaime-fari%C3%B1a-pe%C3%B1a-279565206/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="tel:+34653443251">+34 653 443 251</a>
+    </div>
+    <p class="small" style="margin-bottom:0">Based in Vigo, Galicia, Spain.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>© <span id="year"></span> Jaime Fariña Peña</footer>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  // Theme (respects system preference, remembers choice when possible)
+  var saved=null;
+  try{saved=localStorage.getItem('theme')}catch(e){}
+  var dark=saved?saved==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;
+  root.setAttribute('data-theme',dark?'dark':'light');
+  document.getElementById('theme').addEventListener('click',function(){
+    dark=!dark;
+    root.setAttribute('data-theme',dark?'dark':'light');
+    try{localStorage.setItem('theme',dark?'dark':'light')}catch(e){}
+  });
+  document.getElementById('print').addEventListener('click',function(){window.print()});
+
+  // Years at Centum (started Nov 2024)
+  var now=new Date(), start=new Date(2024,10,1);
+  var yrs=Math.floor((now-start)/(365.25*24*3600*1000));
+  if(yrs>=1) document.getElementById('yrs').textContent=yrs+'+';
+  document.getElementById('year').textContent=now.getFullYear();
+
+  // Centum tabs
+  var tabs=document.querySelectorAll('.tab'), panels=document.querySelectorAll('.panel');
+  tabs.forEach(function(t){
+    t.addEventListener('click',function(){
+      tabs.forEach(function(x){x.setAttribute('aria-selected','false')});
+      panels.forEach(function(p){p.classList.remove('show')});
+      t.setAttribute('aria-selected','true');
+      document.getElementById(t.dataset.p).classList.add('show');
+    });
+  });
+
+  // Skill filters
+  var chips=document.querySelectorAll('.chip'), skills=document.querySelectorAll('.skill');
+  chips.forEach(function(c){
+    c.addEventListener('click',function(){
+      chips.forEach(function(x){x.setAttribute('aria-pressed','false')});
+      c.setAttribute('aria-pressed','true');
+      skills.forEach(function(s){
+        s.classList.toggle('hide',c.dataset.f!=='all'&&s.dataset.c!==c.dataset.f);
+      });
+    });
+  });
+
+  // Reveal on scroll
+  var items=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+    },{threshold:.08});
+    items.forEach(function(i){io.observe(i)});
+  }else{items.forEach(function(i){i.classList.add('in')})}
+
+  // Active nav link
+  var links=document.querySelectorAll('nav a[href^="#"]');
+  window.addEventListener('scroll',function(){
+    var pos=window.scrollY+120, cur=null;
+    links.forEach(function(l){
+      var s=document.querySelector(l.getAttribute('href'));
+      if(s&&s.offsetTop<=pos)cur=l;
+    });
+    links.forEach(function(l){l.classList.toggle('active',l===cur)});
+  });
+})();
+</script>
+</body>
+</html>
